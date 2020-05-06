@@ -6,7 +6,7 @@ const verify = require('./validation/veryfyToken')
 
 // Import Routers
 app.get('/', (req, res) => {
-    res.send("hello word")
+    res.send("hello word necesen")
 })
 
 const authRoute = require('./routes/auth/auth');
