@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 const verify = require('./validation/veryfyToken')
 
 // Import Routers
+app.get('/', (req, res) => {
+    res.send("hello word")
+})
+
 const authRoute = require('./routes/auth/auth');
 const userRoute = require('./routes/user/user');
 
