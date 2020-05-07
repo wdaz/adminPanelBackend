@@ -37,7 +37,6 @@ router.post('/singup', async (req, res) => {
 
 // Sing IN
 router.post('/singin', async (req, res) => {
-
     // Validation 
     const { error } = singInValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -47,18 +46,18 @@ router.post('/singin', async (req, res) => {
         email: req.body.email
     })
 
-    if (!user) return res.status(400).send('Email or password is wrong');
+    if (!user) return res.status(400).send('Email is wrong');
 
     //PASSWORD IS CORRECT
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) return res.status(400).send('Email or password is wrong');
+    if (!validPass) return res.status(400).send('Password is wrong');
 
     const token = jwt.sign(
         { _id: user._id },
         process.env.TOKEN_SECRET,
         { algorithm:  'HS256' },
         { expiresIn: '1h' })
-    res.header('auth-token', token).send(token);
+    res.json(token).status(200);
 })
 
 module.exports = router;
