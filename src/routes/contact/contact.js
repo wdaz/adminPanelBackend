@@ -1,30 +1,30 @@
 const router = require('express').Router();
-const User = require('../../model/User');
+const Contact= require('../../model/Contact');
 
 
 
 router.get('/', (req, res) => {
-    User.find({}, function (err, users) {
-        res.json(users);
+    Contact.find({}, function (err, contacts) {
+        res.json(contacts);
     });
 });
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    const user = await findOne(id)
-    res.json(user)
+    const contact= await findOne(id)
+    res.json(contact)
 });
 
 
 router.post('/post', async (req, res) => {
 
-    const emailExist = await User.findOne({
+    const emailExist = await Contact.findOne({
         email: req.body.email
     })
 
     if (emailExist) return res.status(400).send('Email alredy exists')
 
-    const user = new User({
+    const contact = new Contact({
         email: req.body.email,
         password: req.body.password,
         firstname: req.body.firstname,
@@ -34,7 +34,7 @@ router.post('/post', async (req, res) => {
     })
 
     try {
-        const savedPost = await user.save()
+        const savedPost = await contact.save()
         res.json(savedPost)
     } catch (err) {
         res.status(400).send(err)
@@ -44,7 +44,7 @@ router.post('/post', async (req, res) => {
 
 router.put('/update/:id', async (req, res) => {
 
-    const user = {
+    const contact = {
         email: req.body.email,
         password: req.body.password,
         firstname: req.body.firstname,
@@ -52,13 +52,13 @@ router.put('/update/:id', async (req, res) => {
         country: req.body.country,
         phoneNumber: req.body.phoneNumber,
     };
-
+    
     const id = req.params.id;
     const findUser = await findOne(id);
 
     try {
-        const savedPost = await findUser.updateOne(user)
-        res.send(savedPost)
+        const savedPost = await findUser.updateOne(contact)
+        res.json(savedPost)
     } catch (err) {
         res.status(400).send(err)
     }
@@ -70,7 +70,7 @@ router.delete('/delete/:id', async (req, res) => {
    
     try {
        await findUser.delete()
-        res.send('ok')
+        res.json('ok')
     } catch (err) {
         res.status(400).send(err)
     }
@@ -80,5 +80,5 @@ module.exports = router;
 
 
 const findOne = (id) => {
-    return User.findOne({ _id: id })
+    return Contact.findOne({ _id: id })
 }

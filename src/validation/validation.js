@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 
-const userValidation = (data) => {
+const singUpValidation = (data) => {
     const schema = Joi.object({
         email: Joi.string()
             .min(6)
@@ -32,5 +32,5 @@ const singInValidation = (data) => {
 
 }
 
-module.exports.userValidation = userValidation;
+module.exports.singUpValidation = singUpValidation;
 module.exports.singInValidation = singInValidation;

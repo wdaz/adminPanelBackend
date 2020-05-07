@@ -13,24 +13,9 @@ const userSchema = new mongoose.Schema({
         min: 8,
         max: 1024
     },
-    firstname: {
+    name: {
         type: String,
         min: 2,
-        max: 255
-    },
-    lastname: {
-        type: String,
-        min: 2,
-        max: 255
-    },
-    country: {
-        type: String,
-        min: 3,
-        max: 255
-    },
-    phoneNumber: {
-        type: String,
-        min: 13,
         max: 255
     },
     date: {

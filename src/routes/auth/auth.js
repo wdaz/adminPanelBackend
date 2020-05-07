@@ -2,12 +2,12 @@ const router = require('express').Router();
 const User = require('../../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { userValidation, singInValidation } = require('../../validation/validation')
+const { singUpValidation, singInValidation } = require('../../validation/validation')
 
 
 router.post('/singup', async (req, res) => {
 
-    const { error } = userValidation(req.body)
+    const { error } = singUpValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
     const emailExist = await User.findOne({
@@ -51,13 +51,14 @@ router.post('/singin', async (req, res) => {
     //PASSWORD IS CORRECT
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Password is wrong');
-
+    
     const token = jwt.sign(
         { _id: user._id },
         process.env.TOKEN_SECRET,
-        { algorithm:  'HS256' },
+        { algorithm: 'HS256' },
         { expiresIn: '1h' })
-    res.json(token).status(200);
+
+    res.json({ token: token, username: user.name }).status(200);
 })
 
 module.exports = router;

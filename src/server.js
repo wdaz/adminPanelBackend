@@ -3,12 +3,12 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const verify = require('./src/validation/veryfyToken')
+const verify = require('./validation/veryfyToken')
 
 // Import Routers
 
-const authRoute = require('./src/routes/auth/auth');
-const userRoute = require('./src/routes/user/user');
+const authRoute = require('./routes/auth/auth');
+const contactRoute = require('./routes/contact/contact');
 
 dotenv.config();
 
@@ -31,11 +31,11 @@ const corsOptions = {
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Routes Middleware
 app.use('/api', authRoute);
-app.use('/api/user',verify, userRoute);
+app.use('/api/contact',verify, contactRoute);
 
 
 const port = process.env.PORT || 3000;
