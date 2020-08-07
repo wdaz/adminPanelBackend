@@ -1,6 +1,6 @@
 module.exports = {
   db_config: {
-    connectionString: "mongodb://localhost:27017/myapp",
+    connectionString: "mongodb+srv://magic:<password>@adminpaneldb-9eem7.mongodb.net/<dbname>?retryWrites=true&w=majority",
     configuration: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
