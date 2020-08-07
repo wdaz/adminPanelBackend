@@ -9,8 +9,6 @@ const singUpValidation = (data) => {
         password: Joi.string()
             .min(8)
             .required(),
-        phoneNumber: Joi.string()
-            .min(13)
     });
     // Validate the date
     return schema.validate(data)
